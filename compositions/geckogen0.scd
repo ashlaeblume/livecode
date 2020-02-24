@@ -1,14 +1,20 @@
-//a generative music project inspired by gecko hearing, neuroscience, and the kuramoto model
-//@ashlaeblume
-//aegrae@gmail.com
+// A generative music project inspired by gecko hearing, neuroscience, and the kuramoto model
+// Written in SuperCollider by ashlaeblume, january 2020
+// ashlaeblume@gmail.com
 
-//functions for short generative composition using slow textures
+// Performance instructions:
+// compile Part 1; wait; compile Part 2.
 
+// Optional recording start/stop commands
 s.record;
 s.stop;
 
-//PART 1
-//grainy sine wave synthdef routine: bell-type tones with randomly generated frequencies
+
+
+// Functions for short generative composition using slow textures
+
+// PART 1
+// Grainy sine wave synthdef routine: bell-type tones with randomly generated frequencies
 (
 SynthDef(\bellbot, { |freq = 523, amp = 0.2, sustain = 1|
 	var sig; //signal convolves (multiplies) sine with perc envelope
@@ -16,7 +22,7 @@ SynthDef(\bellbot, { |freq = 523, amp = 0.2, sustain = 1|
 	Out.ar(0, sig ! 2);    // sig!2 is 2-channel (stereo) output
 }).add;
 
-//loop routine for generating bellbots with rrand, exprand
+// Loopy routine for generating bellbots with rrand, exprand
 r = Routine({
     var dt;
     loop {
@@ -27,7 +33,8 @@ r = Routine({
 });
 //r.play;
 
-(//task which plays bellbot routine 4 times with an interval of 4.3 seconds in-between each event
+// Task which plays bellbot routine 4 times with an interval of 4.3 seconds in-between each event
+(
 t =  Task({
 	4.do({ arg i;
 		r.play;
@@ -38,8 +45,8 @@ t.play;
 )
 )
 
-//PART 2
-//generates an ascending square wave synthdef
+// PART 2
+// Generates an ascending square wave synthdef
 (
 
 SynthDef.new("asc", {
